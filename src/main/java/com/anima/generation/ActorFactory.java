@@ -6,10 +6,10 @@ import com.anima.rules.Dice;
 
 import java.util.Arrays;
 
-public class CharGen {
+public class ActorFactory {
     int[] rolls;
     
-    public CharGen(Actor actor, Difficulty difficulty) {
+    public ActorFactory(Actor actor, Difficulty difficulty) {
         rolls = new int[8];
         switch (difficulty) {
             case Easy     -> easyPrimaryStats(actor);
@@ -49,6 +49,8 @@ public class CharGen {
         chooseStats(actor, rolls);
     }
     
+    //todo: implement feature that allows user to choose where to place stats
+    // decouple so can easily be swapped from console to window or any other output (adapter pattern for inputs maybe)
     private void chooseStats(Actor actor, int[] rolls) {
         PrimaryStatsComponent stats = new PrimaryStatsComponent();
         
