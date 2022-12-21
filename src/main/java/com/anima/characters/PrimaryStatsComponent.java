@@ -21,8 +21,15 @@ public class PrimaryStatsComponent {
         init();
     }
     
+    public int getStat(String stat) {
+        return primaryStats.get(stat);
+    }
+    
+    public void setStat(String stat, int value) {
+        primaryStats.put(stat, value);
+    }
+    
     private void init(){
-        
         // this implementation restricts adding new keys accidentally
         HashMap<String, Integer> readPrimaryStats = new HashMap<>();
         Gson gson = new Gson();
@@ -32,7 +39,7 @@ public class PrimaryStatsComponent {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        //todo: read the primary stats from json and load into the StatsMap
+        // reads the primary stats from json and loads them into the StatsMap
         JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
         JsonArray primaryStatsArray = jsonObject.getAsJsonArray("primaryStats");
         for (JsonElement stat : primaryStatsArray) {
@@ -41,7 +48,4 @@ public class PrimaryStatsComponent {
         primaryStats = new StatsMap<>(readPrimaryStats);
     }
     
-    public int getStat(String primary) {
-            return primaryStats.get(primary);
-        }
 }
