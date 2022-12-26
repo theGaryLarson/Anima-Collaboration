@@ -12,11 +12,20 @@ public class ActorFactory {
     public ActorFactory(Actor actor, Difficulty difficulty) {
         rolls = new int[8];
         switch (difficulty) {
+            case Novice   -> novicePrimaryStats(actor);
             case Easy     -> easyPrimaryStats(actor);
             case Standard -> standardPrimaryStats(actor);
             case Hardcore -> hardcorePrimaryStats(actor);
         }
         
+    }
+    /**
+     * Method 4 from rule book for generating primary Stats
+     */
+    
+    private void novicePrimaryStats(Actor actor) {
+        //todo: write this up according to method 4
+        chooseStats(actor, rolls);
     }
     
     /**
@@ -49,14 +58,6 @@ public class ActorFactory {
         chooseStats(actor, rolls);
     }
     
-    //todo: implement feature that allows user to choose where to place stats
-    // decouple so can easily be swapped from console to window or any other output (adapter pattern for inputs maybe)
-    private void chooseStats(Actor actor, int[] rolls) {
-        PrimaryStatsComponent stats = new PrimaryStatsComponent();
-        
-        actor.setPrimaryStats(stats);
-    }
-    
     /**
      * Method 3 from rule book for generating primary Stats
      *
@@ -66,4 +67,15 @@ public class ActorFactory {
         //todo: write this up according to method 3
         actor.setPrimaryStats(stats);
     }
+    
+    private void chooseStats(Actor actor, int[] rolls) {
+        //todo: implement feature that allows user to choose where to place stats
+        // decouple so can easily be swapped from console to window or any other output
+        // (adapter pattern for inputs maybe)
+        PrimaryStatsComponent stats = new PrimaryStatsComponent();
+        
+        actor.setPrimaryStats(stats);
+    }
+    
+
 }
