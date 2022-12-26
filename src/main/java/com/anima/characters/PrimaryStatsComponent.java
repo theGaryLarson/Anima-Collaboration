@@ -29,6 +29,9 @@ public class PrimaryStatsComponent {
         primaryStats.put(stat, value);
     }
     
+    //methods to handle buffing debuffing of stats (params, modifier, stat, duration/rounds)
+    // should be handled in a GameManager object
+    
     private void init(){
         // this implementation restricts adding new keys accidentally
         HashMap<String, Integer> readPrimaryStats = new HashMap<>();
