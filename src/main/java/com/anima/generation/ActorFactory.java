@@ -1,6 +1,7 @@
 package com.anima.generation;
 
 import com.anima.base.Actor;
+import com.anima.base.Output;
 import com.anima.characters.PrimaryStatsComponent;
 import com.anima.rules.Dice;
 
@@ -8,8 +9,9 @@ import java.util.Arrays;
 
 public class ActorFactory {
     int[] rolls;
+    Output output;
     
-    public ActorFactory(Actor actor, Difficulty difficulty) {
+    public ActorFactory(Actor actor, Difficulty difficulty, Output output) {
         rolls = new int[8];
         switch (difficulty) {
             case Novice   -> novicePrimaryStats(actor);
@@ -24,8 +26,15 @@ public class ActorFactory {
      */
     
     private void novicePrimaryStats(Actor actor) {
-        //todo: write this up according to method 4
-        chooseStats(actor, rolls);
+        int roll1;
+        int roll2;
+        final int TOTAL_ROLLS = 8;
+        for (int roll = 1; roll <= TOTAL_ROLLS; roll++) {
+            roll1 = Dice.rollD10();
+            roll2 = Dice.rollD10();
+            rolls[roll] = Math.max(roll1, roll2);
+        }
+        chooseStats(actor, rolls, output);
     }
     
     /**
@@ -34,7 +43,7 @@ public class ActorFactory {
      */
     public void easyPrimaryStats(Actor actor) {
         //todo: write this up according to method 2
-        chooseStats(actor, rolls);
+        chooseStats(actor, rolls, output);
     }
     
     /**
@@ -55,7 +64,7 @@ public class ActorFactory {
         //replace the lowest die with 9 according to the rules
         rolls[0] = Math.max(rolls[0], 9);
         //player assigns each roll to a primary stat
-        chooseStats(actor, rolls);
+        chooseStats(actor, rolls, output);
     }
     
     /**
@@ -68,7 +77,7 @@ public class ActorFactory {
         actor.setPrimaryStats(stats);
     }
     
-    private void chooseStats(Actor actor, int[] rolls) {
+    private void chooseStats(Actor actor, int[] rolls, Output c) {
         //todo: implement feature that allows user to choose where to place stats
         // decouple so can easily be swapped from console to window or any other output
         // (adapter pattern for inputs maybe)
