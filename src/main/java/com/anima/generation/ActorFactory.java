@@ -26,6 +26,8 @@ public class ActorFactory {
      */
     
     private void novicePrimaryStats(Actor actor) {
+
+        //todo: uhhhhh
         int roll1;
         int roll2;
         final int TOTAL_ROLLS = 8;
